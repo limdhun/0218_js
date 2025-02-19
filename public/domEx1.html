@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            background-color: #535bf2;
+            color: white;
+        }
+
+        #d1 {
+            background-color: yellow;
+        }
+
+        .card {
+            color: blue;
+        }
+
+        input[name='fullName'] {
+            margin: 3em;
+        }
+
+        .paging {
+            max-height: 500px; /* 충분히 큰 값 설정 */
+            overflow: hidden;
+            transition: max-height 3s ease-in-out;
+        }
+
+        .hidden {
+            max-height: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="d1">
+    <div>AAA</div>
+</div>
+
+<div class="card" data-ord="1">BBBBBBBB</div>
+<div class="card">CCCCCCCC</div>
+
+<div>
+    <input type="text" name="fullName">
+</div>
+
+<ul class="paging"></ul>
+
+<script>
+    const paging = document.querySelector(".paging");
+    let str = '';
+
+    for (let i = 0; i < 10; i++) {
+        str += `<li>AAAAAAAAA ${i}</li>`;
+    }
+
+    paging.innerHTML = str;
+
+    setTimeout(() => {
+        console.log("AAAAAAA");
+        paging.classList.add("hidden");
+    }, 3000);
+</script>
+
+</body>
+</html>

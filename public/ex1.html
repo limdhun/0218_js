@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+  let obj = "AAA"
+
+  function doA() {
+
+    function doB(){
+      console.log("DOB")
+    }
+
+    console.log(this)
+    doB()
+
+
+    for(let i = 0; i < 10; i++) {
+      console.log(i)
+    }
+
+  }
+
+  obj = doA
+
+  doA()
+  obj()
+
+  var obj2 = {doA: doA}
+
+  obj2.doA()
+
+
+</script>
+
+</body>
+</html>

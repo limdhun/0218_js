@@ -1,0 +1,112 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: darkkhaki;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .master {
+        width: 70vw;
+        height: 100vh;
+        background-color: cornsilk;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3열 */
+        grid-template-rows: repeat(2, 1fr); /* 2행 */
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .menuItem {
+        background-color: white;
+        border: 1px solid blue;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .menuItem:hover {
+        transform: scale(1.05);
+    }
+
+    .menuItem img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+    .menuItem span {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .detail {
+        width: 30vw;
+        height: 100vh;
+        background-color: gold;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="master"></div>
+    <div class="detail">Detail</div>
+</div>
+
+<script>
+    const menus = [
+        {mno: 1, mname: '감자깡', price: 900, img1: '1.jpg', img2: 'a.jpg', cat: 'coffee'},
+        {mno: 2, mname: '닭다리너겟', price: 1100, img1: '2.jpg', img2: 'a.jpg', cat: 'coffee'},
+        {mno: 3, mname: '매운새우깡', price: 1200, img1: '3.jpg', img2: 'a.jpg', cat: 'coffee'},
+        {mno: 4, mname: '바나나킥', price: 700, img1: '4.jpg', img2: 'a.jpg', cat: 'cake'},
+        {mno: 5, mname: '알새우칩', price: 1000, img1: '5.jpg', img2: 'a.jpg', cat: 'cookie'},
+        {mno: 6, mname: '자갈치', price: 800, img1: '6.jpg', img2: 'a.jpg', cat: 'cookie'}
+    ];
+
+    function makeMenuList() {
+        let str = '';
+
+        menus.forEach(menu => {
+            const { mno, mname, price, img1, img2 } = menu;
+
+            str += `
+        <div class="menuItem" data-mno="${mno}">
+          <img src="${img1}" alt="${mname}">
+          <img src="${img2}" alt="${mname}">
+          <span>${mname} - ${price}원</span>
+        </div>
+      `;
+        });
+
+        document.querySelector(".master").innerHTML = str;
+    }
+
+    makeMenuList();
+
+    document.querySelector(".master").addEventListener("click", e => {
+        const target = e.target.closest(".menuItem");
+        if (!target) return;
+
+        const mno = target.dataset.mno;
+        alert(`선택한 메뉴 번호: ${mno}`);
+    });
+</script>
