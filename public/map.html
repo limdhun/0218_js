@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Kakao 지도 시작하기</title>
+</head>
+<body>
+
+
+<div id="map" style="width:100vw;height:50vh;"></div>
+
+<div>
+  <ul class="category">
+    <li data-cat="A">전체</li>
+    <li data-cat="S">돼지국밥</li>
+    <li data-cat="N">밀면</li>
+    <li data-cat="C">중국집</li>
+  </ul>
+</div>
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba7eb7ddf1f56ab28f3ee61c9627f2e0"></script>
+
+<script>
+
+  const container = document.querySelector('#map')
+  const options = {
+    center: new kakao.maps.LatLng(35.170797, 129.114157),
+    level: 7
+  }
+
+  const map = new kakao.maps.Map(container, options);
+
+</script>
+
+<script>
+
+  function makeMarker(store) {
+
+    const {sno, name, lat, lng} = store //구조 분해 할당
+
+    const markerPosition  = new kakao.maps.LatLng(lat, lng);
+
+    const marker = new kakao.maps.Marker({
+      position: markerPosition
+    });
+
+    marker.show = function () {
+      marker.setMap(map)
+    }
+    marker.hide = function () {
+      marker.setMap(null)
+    }
+
+    // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+    const iwContent = `<div style="padding:5px;">${sno} - ${name}</div>`
+    const iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+    // 인포윈도우를 생성합니다
+    const infowindow = new kakao.maps.InfoWindow({
+      content : iwContent,
+      removable : iwRemoveable
+    });
+
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'click', function() {
+      // 마커 위에 인포윈도우를 표시합니다
+      infowindow.open(map, marker);
+      map.panTo(markerPosition);
+    });
+
+    store.marker = marker
+
+    return store
+  }
+
+
+  const stores = [
+    {sno:1, name: '늘해랑', lat: 35.172417,lng:129.071677 , cat:'S'},
+    {sno:2, name: '국제밀면', lat:35.19686 ,lng: 129.07787, cat:'N'},
+    {sno:3, name: '합천일류돼지국밥', lat: 35.162277,lng: 128.980138, cat:'S'},
+    {sno:4, name: '범일돼지국밥', lat: 35.242739,lng: 129.093678, cat:'S'},
+    {sno:5, name: '미각반점', lat:35.228885 ,lng:129.085024 , cat:'C'},
+    {sno:6, name: '수복 돼지국밥', lat:35.205792,lng:129.102198 , cat:'S'},
+    {sno:7, name: '김순화충남순대', lat:36.44069074,lng:127.38549268 , cat:'S'},
+  ]
+
+  const markedStores = stores.map( s => makeMarker(s))
+
+  function showSelectStore(catName) {
+    //모든 마커들은 안보이게
+    markedStores.forEach( s => s.marker.hide())
+
+    markedStores.filter(s => {
+      if(catName === 'A'){
+        return true
+      }return s.cat === catName
+    }).forEach(s => s.marker.show())
+  }
+
+  document.querySelector('.category').addEventListener("click", e => {
+
+    const target = e.target
+
+    if(target.tagName !== 'LI') { return }
+
+    showSelectStore(target.dataset.cat)
+
+
+  }, false)
+
+
+
+
+</script>
+
+</body>
+</html>
