@@ -1,6 +1,6 @@
 
 
-export default function TodoSerivce() {
+export default function TodoService() {
 
     let idx = 0
     let arr = [ ]

@@ -19,13 +19,13 @@
 
 
 <script type="module">
-  import TodoSerivce from "./todo.js";
+  import TodoService from "./todo.js";
 
   const input = document.querySelector("input[name='title']")
   const addBtn = document.querySelector(".addBtn")
   const todoList = document.querySelector(".todoList")
 
-  const service = TodoSerivce()
+  const service = TodoService()
 
   addBtn.addEventListener("click", e => {
     const title = input.value
