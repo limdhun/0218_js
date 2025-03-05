@@ -28,11 +28,37 @@
     </div>
 </div>
 
+<a href="./count2.html">COUNT2</a>
+
+<div>
+    <form action="./count2.html" method="get">
+        <button id="formBtn">COUNT2</button>
+    </form>
+</div>
+
 <script>
+
+    function doA(num1, num2) {
+
+    }
+
+    console.log(doA())
+    console.log(doA(1))
+    console.log(doA('AAA'))
+    console.log(doA(11,33))
+    console.log(doA(11,22,343))
+
+
+    document.querySelector("#formBtn").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+    }, false)
 
     // 버블링/캡처링
 
     document.querySelector("#btn1").addEventListener("click", (event) =>  {
+
+        event.stopPropagation()
 
         const target = event.target //이벤트의 주어
 
@@ -42,9 +68,12 @@
 
     document.querySelector("#btn2").addEventListener("click", (event) =>  {
 
+        event.stopPropagation()
+
         const target = event.target //이벤트의 주어
 
         console.log("inner")
+
 
     }, false)
 
